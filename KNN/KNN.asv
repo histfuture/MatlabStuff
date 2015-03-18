@@ -1,0 +1,18 @@
+function KNN(train,test,trl,tel,topk)
+    maxv = max(train);
+    minv = min(train);
+    train = bsxfun(@minus,train,minv); 
+    train = bsxfun(@rdivide,train,(maxv-minv));    
+    test = bsxfun(@minus,test,minv) ;
+    test = bsxfun(@rdivide,test,(maxv-minv));
+
+    dist = pdist2(test,train);
+    [dist,index] = sort(dist,2);
+    index = index(:,1:topk);
+    
+    result = zeros(size(index,1),1)
+    for i = 1 : size(index,1)
+        result[i] = mode ()
+    end
+    disp(length(find(result==1))/length(tel))
+end
